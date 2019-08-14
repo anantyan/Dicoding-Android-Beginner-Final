@@ -26,10 +26,9 @@ public class DetailGambarActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.photo_detail) ImageView photoDetail;
-    @BindView(R.id.progress_circular)
-    ProgressBar progressBar;
+    @BindView(R.id.progress_circular) ProgressBar progressBar;
 
-    public static final String EXTRA_GAMBAR = "extra_gambar";
+    public static final String EXTRA_DETAIL = "extra_gambar";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class DetailGambarActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        String dataGambar = getIntent().getStringExtra(EXTRA_GAMBAR);
+        String dataGambar = getIntent().getStringExtra(EXTRA_DETAIL);
 
         RequestOptions requestOptions = new RequestOptions()
                 .format(DecodeFormat.PREFER_ARGB_8888)

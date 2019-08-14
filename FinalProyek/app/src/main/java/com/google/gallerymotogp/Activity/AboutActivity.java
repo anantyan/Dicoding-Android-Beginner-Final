@@ -74,9 +74,9 @@ public class AboutActivity extends AppCompatActivity {
     private void photoProfile() {
         photoProfile.setOnClickListener(v -> {
             Intent i = new Intent(AboutActivity.this, DetailGambarActivity.class);
-            i.putExtra(DetailGambarActivity.EXTRA_GAMBAR, dataGambar);
+            i.putExtra(DetailGambarActivity.EXTRA_DETAIL, dataGambar);
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this,
+                    AboutActivity.this,
                     photoProfile,
                     ViewCompat.getTransitionName(photoProfile));
             startActivity(i, options.toBundle());

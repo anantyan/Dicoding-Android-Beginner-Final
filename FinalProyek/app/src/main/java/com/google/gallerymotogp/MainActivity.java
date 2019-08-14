@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.gallerymotogp.Activity.AboutActivity;
+import com.google.gallerymotogp.Activity.DetailActivity;
 import com.google.gallerymotogp.Adapter.RiderAdapter;
 import com.google.gallerymotogp.Component.RiderComponent;
 import com.google.gallerymotogp.Component.RiderDataComponent;
@@ -24,6 +25,11 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_DESCRIPTION;
+import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_GELAR;
+import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_NAME;
+import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_PHOTO;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,7 +78,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerOnClickListener(MainActivity.this, recyclerView, new RecyclerOnClickListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-
+                RiderComponent riderComponent = records.get(position);
+                Intent i = new Intent(MainActivity.this, DetailActivity.class);
+                i.putExtra(EXTRA_PHOTO, riderComponent.getPhotoRider());
+                i.putExtra(EXTRA_NAME, riderComponent.getNameRider());
+                i.putExtra(EXTRA_GELAR, riderComponent.getGelarRider());
+                i.putExtra(EXTRA_DESCRIPTION, riderComponent.getDescriptionRider());
+                startActivity(i);
             }
 
             @Override

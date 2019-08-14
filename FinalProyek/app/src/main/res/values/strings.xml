@@ -8,11 +8,14 @@
     <string name="txt_about_us_1">Hello masih bersama kami di About Ud</string>
     <string name="txt_this_is_tag_about_rider">This is tag about rider</string>
     <string name="txt_username">Username</string>
-    <string name="txt_aryarezza">aryarezza</string>
+    <string name="txt_aryarezza">anantyan</string>
     <string name="txt_arya_rezza_anantya">Arya Rezza Anantya</string>
     <string name="txt_bergabung_sejak_12_oct_2018">Bergabung sejak 12 Oct 2018</string>
     <string name="txt_email">Email</string>
     <string name="txt_anantya4995_gmail_com">anantya4995@gmail.com</string>
     <string name="txt_jenis_kelamin">Jenis kelamin</string>
     <string name="txt_laki_laki">Laki-laki</string>
+    <string name="txt_name_rider">Name Rider</string>
+    <string name="txt_gelar_juara">Gelar Juara</string>
+    <string name="txt_deskripsi_rider">Deskripsi Rider</string>
 </resources>

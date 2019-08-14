@@ -29,7 +29,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.google.gallerymotogp.Activity.DetailGambarActivity.EXTRA_GAMBAR;
+import static com.google.gallerymotogp.Activity.DetailGambarActivity.EXTRA_DETAIL;
+
 
 public class RiderAdapter extends RecyclerView.Adapter<RiderAdapter.ViewHolder> {
 
@@ -81,16 +82,19 @@ public class RiderAdapter extends RecyclerView.Adapter<RiderAdapter.ViewHolder> 
         viewHolder.txtDescriptionRider.setText(riderComponent.getDescriptionRider());
 
         // jika click photoRider maka masuk ke detail gambar
-        viewHolder.photoRider.setOnClickListener(v -> {
-            String dataGambar = records.get(viewHolder.getAdapterPosition()).getPhotoRider();
-            Intent intent = new Intent(viewHolder.itemView.getContext(), DetailGambarActivity.class);
-            intent.putExtra(EXTRA_GAMBAR, dataGambar);
-            ActivityOptionsCompat options = (ActivityOptionsCompat) ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    (Activity) viewHolder.itemView.getContext(),
-                    viewHolder.photoRider,
-                    ViewCompat.getTransitionName(viewHolder.photoRider));
-            viewHolder.itemView.getContext().startActivity(intent, options.toBundle());
-        });
+        /*viewHolder.photoRider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dataGambar = records.get(viewHolder.getAdapterPosition()).getPhotoRider();
+                Intent intent = new Intent(viewHolder.itemView.getContext(), DetailGambarActivity.class);
+                intent.putExtra(EXTRA_DETAIL, dataGambar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        (Activity) viewHolder.itemView.getContext(),
+                        viewHolder.photoRider,
+                        ViewCompat.getTransitionName(viewHolder.photoRider));
+                viewHolder.itemView.getContext().startActivity(intent, options.toBundle());
+            }
+        });*/
     }
 
     @Override
