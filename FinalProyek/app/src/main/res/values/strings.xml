@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Gallery MotoGP</string>
+    <string name="about_name">About Us</string>
+    <string name="detail_name">Detail Info</string>
+    <string name="txt_this_is_deskripsi_rider">This is deskripsi</string>
+    <string name="txt_this_is_name_rider">This is name rider</string>
+    <string name="txt_this_is_arrow_right">This is arrow right</string>
+    <string name="txt_about_us_1">Hello masih bersama kami di About Ud</string>
+    <string name="txt_this_is_tag_about_rider">This is tag about rider</string>
+    <string name="txt_username">Username</string>
+    <string name="txt_aryarezza">aryarezza</string>
+    <string name="txt_arya_rezza_anantya">Arya Rezza Anantya</string>
+    <string name="txt_bergabung_sejak_12_oct_2018">Bergabung sejak 12 Oct 2018</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_anantya4995_gmail_com">anantya4995@gmail.com</string>
+    <string name="txt_jenis_kelamin">Jenis kelamin</string>
+    <string name="txt_laki_laki">Laki-laki</string>
+</resources>
