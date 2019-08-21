@@ -1,7 +1,9 @@
 package com.google.gallerymotogp.Adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
@@ -18,26 +20,30 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.google.gallerymotogp.Activity.DetailGambarActivity;
 import com.google.gallerymotogp.Component.RiderComponent;
+import com.google.gallerymotogp.Listener.RecyclerOnClickListener;
+import com.google.gallerymotogp.MainActivity;
 import com.google.gallerymotogp.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.google.gallerymotogp.Activity.DetailGambarActivity.EXTRA_DETAIL;
-
-
 public class RiderAdapter extends RecyclerView.Adapter<RiderAdapter.ViewHolder> {
 
     private ArrayList<RiderComponent> records;
+    private RecyclerOnClickListener.ClickListener clickListener;
+    private Context context;
 
-    public RiderAdapter(ArrayList<RiderComponent> records){
+    public RiderAdapter(Context context, ArrayList<RiderComponent> records){
+        this.context = context;
         this.records = records;
+    }
+
+    public void setClickListener(Context context, RecyclerOnClickListener.ClickListener clickListener) {
+        this.context = context;
+        this.clickListener = clickListener;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -81,20 +87,15 @@ public class RiderAdapter extends RecyclerView.Adapter<RiderAdapter.ViewHolder> 
         viewHolder.txtNameRider.setText(riderComponent.getNameRider());
         viewHolder.txtDescriptionRider.setText(riderComponent.getDescriptionRider());
 
-        // jika click photoRider maka masuk ke detail gambar
-        /*viewHolder.photoRider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String dataGambar = records.get(viewHolder.getAdapterPosition()).getPhotoRider();
-                Intent intent = new Intent(viewHolder.itemView.getContext(), DetailGambarActivity.class);
-                intent.putExtra(EXTRA_DETAIL, dataGambar);
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        (Activity) viewHolder.itemView.getContext(),
-                        viewHolder.photoRider,
-                        ViewCompat.getTransitionName(viewHolder.photoRider));
-                viewHolder.itemView.getContext().startActivity(intent, options.toBundle());
-            }
-        });*/
+        // jika click maka pindah activity/fragment lain
+        viewHolder.photoRider.setOnClickListener(v ->
+                clickListener.onImgClick(v, records.get(viewHolder.getAdapterPosition()), viewHolder.photoRider));
+        viewHolder.itemView.setOnClickListener(v ->
+                clickListener.onClick(v, records.get(viewHolder.getAdapterPosition())));
+        viewHolder.itemView.setOnLongClickListener(v -> {
+            clickListener.onLongClick(v, records.get(viewHolder.getAdapterPosition()));
+            return true;
+        });
     }
 
     @Override

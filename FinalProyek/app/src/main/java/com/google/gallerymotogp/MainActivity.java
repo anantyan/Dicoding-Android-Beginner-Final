@@ -1,6 +1,9 @@
 package com.google.gallerymotogp;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,10 +15,12 @@ import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gallerymotogp.Activity.AboutActivity;
 import com.google.gallerymotogp.Activity.DetailActivity;
+import com.google.gallerymotogp.Activity.DetailGambarActivity;
 import com.google.gallerymotogp.Adapter.RiderAdapter;
 import com.google.gallerymotogp.Component.RiderComponent;
 import com.google.gallerymotogp.Component.RiderDataComponent;
@@ -30,6 +35,7 @@ import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_DESCRIPTION
 import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_GELAR;
 import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_NAME;
 import static com.google.gallerymotogp.Activity.DetailActivity.EXTRA_PHOTO;
+import static com.google.gallerymotogp.Activity.DetailGambarActivity.EXTRA_DETAIL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,17 +74,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void recyclerView() {
-        riderAdapter = new RiderAdapter(records);
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(riderAdapter);
-        recyclerView.addOnItemTouchListener(new RecyclerOnClickListener(MainActivity.this, recyclerView, new RecyclerOnClickListener.ClickListener() {
+        riderAdapter = new RiderAdapter(MainActivity.this, records);
+        riderAdapter.setClickListener(MainActivity.this, new RecyclerOnClickListener.ClickListener() {
             @Override
-            public void onClick(View view, int position) {
-                RiderComponent riderComponent = records.get(position);
+            public void onClick(View view, RiderComponent riderComponent) {
                 Intent i = new Intent(MainActivity.this, DetailActivity.class);
                 i.putExtra(EXTRA_PHOTO, riderComponent.getPhotoRider());
                 i.putExtra(EXTRA_NAME, riderComponent.getNameRider());
@@ -88,11 +87,28 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLongClick(View view, int position) {
-                RiderComponent riderComponent = records.get(position);
+            public void onLongClick(View view, RiderComponent riderComponent) {
                 Toast.makeText(MainActivity.this, riderComponent.getNameRider(), Toast.LENGTH_SHORT).show();
             }
-        }));
+
+            @Override
+            public void onImgClick(View view, RiderComponent riderComponent, ImageView imageView) {
+                String dataGambar = riderComponent.getPhotoRider();
+                Intent intent = new Intent(MainActivity.this, DetailGambarActivity.class);
+                intent.putExtra(EXTRA_DETAIL, dataGambar);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        MainActivity.this,
+                        imageView,
+                        ViewCompat.getTransitionName(imageView));
+                startActivity(intent, options.toBundle());
+            }
+        });
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(riderAdapter);
     }
 
     @Override
